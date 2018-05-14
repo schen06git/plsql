@@ -1,0 +1,9 @@
+create or repace function get_db
+-- to get the database name
+return varchar2 is
+v_db  varchar2(30);
+begin
+ select name into v_db from v$database;
+ return v_db;
+end;
+/
