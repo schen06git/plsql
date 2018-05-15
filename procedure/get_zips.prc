@@ -14,6 +14,7 @@ EXCEPTION
      WHEN too_many_rows THEN
           dbms_output.put_line('There are many records with that zip.');
      WHEN others THEN
-          dbms_output.put_line(sqlerrm);
+          -- just display first 100 characters of the error msh
+          dbms_output.put_line(substr(sqlerrm), 1, 100);
 END zip;
 /
