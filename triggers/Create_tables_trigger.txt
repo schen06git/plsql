@@ -1,5 +1,7 @@
 Example of creating a trigger and their tables
 
+created: 8/24/2018
+
 -- main table
 create table emp10 (
  id     number(8),
