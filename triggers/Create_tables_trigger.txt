@@ -1,0 +1,33 @@
+Example of creating a trigger and their tables
+
+-- main table
+create table emp10 (
+ id     number(8),
+ fname  varchar2(30) );
+
+-- history table for auditing
+create table emp10_hist (
+ id     number(8),
+ fname  varchar2(30),
+ action varchar2(1),
+ dml_date date );
+
+-- trigger
+create or replace trigger emp10_trig
+before insert or update or delete
+on Emp10
+for each row
+begin
+ if inserting then
+   insert into emp10_hist (id, fname, action, dml_date)
+     values (:new.id, :new.fname, 'I', sysdate);
+ elsif updating then
+   insert into emp10_hist (id, fname, action, dml_date)
+     values (:new.id, :new.fname, 'U', sysdate);
+ else  --- for deleting
+   insert into emp10_hist (id, fname, action, dml_date)
+     values (:old.id, :old.fname, 'D', sysdate);
+ end if;
+end;
+/
+
